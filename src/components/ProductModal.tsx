@@ -6,9 +6,10 @@ import { Product } from '../types/Product';
 interface ProductModalProps {
   product: Product;
   onClose: () => void;
+  onAddToCart: (product: Product, quantity: number) => void;
 }
 
-const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
+const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onAddToCart }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState('specifications');
@@ -29,6 +30,12 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
       return product.originalPrice - product.price;
     }
     return 0;
+  };
+
+  const handleAddToCart = () => {
+    onAddToCart(product, quantity);
+    onClose();
+    // You can add a toast notification here
   };
 
   const nextImage = () => {
@@ -238,6 +245,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={handleAddToCart}
                     disabled={!product.inStock}
                     className={`flex-1 flex items-center justify-center space-x-2 py-4 rounded-lg font-semibold text-lg transition-colors ${
                       product.inStock

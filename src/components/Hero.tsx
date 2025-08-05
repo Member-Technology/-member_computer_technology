@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Truck, Headphones, Monitor, Laptop, Gamepad2 } from 'lucide-react';
 
-const Hero = () => {
+interface HeroProps {
+  onNavigate: (page: string) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white py-20 relative overflow-hidden">
       {/* Background Animation */}
@@ -43,6 +47,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => onNavigate('products')}
                 className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-300 transition-colors flex items-center justify-center space-x-2"
               >
                 <span>Shop Now</span>
@@ -51,6 +56,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => onNavigate('products')}
                 className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-900 transition-colors"
               >
                 View Catalog
@@ -102,6 +108,7 @@ const Hero = () => {
                   <motion.div
                     key={index}
                     whileHover={{ scale: 1.02 }}
+                    onClick={() => onNavigate('products')}
                     className="bg-white/5 rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-all cursor-pointer"
                   >
                     <div className="flex justify-between items-center">

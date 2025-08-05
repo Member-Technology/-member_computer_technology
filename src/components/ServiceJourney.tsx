@@ -133,14 +133,14 @@ const ServiceJourney = () => {
               <div className="flex items-center space-x-2">
                 <CheckCircle className="text-blue-400" size={16} />
                 <span className="text-sm">24/7 technical support</span>
-                 <div className="flex items-center space-x-2">
-                <CheckCircle className="text-blue-400" size={16} />
-                <span className="text-sm">Good and friendly Customer care</span>
-                    <div className="flex items-center space-x-2">
-                <CheckCircle className="text-blue-400" size={16} />
-                <span className="text-sm">Less and affordable prices to our products</span>
               </div>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="text-blue-400" size={16} />
+                <span className="text-sm">Friendly customer care</span>
               </div>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="text-blue-400" size={16} />
+                <span className="text-sm">Affordable prices</span>
               </div>
             </div>
             <motion.button

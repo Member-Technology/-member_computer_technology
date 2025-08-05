@@ -7,9 +7,10 @@ import { Product } from '../types/Product';
 interface ProductGridProps {
   selectedCategory: string;
   onProductSelect: (product: Product) => void;
+  onAddToCart: (product: Product, quantity: number) => void;
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ selectedCategory, onProductSelect }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ selectedCategory, onProductSelect, onAddToCart }) => {
   const [sortBy, setSortBy] = useState('name');
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [showFilters, setShowFilters] = useState(false);
@@ -111,8 +112,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({ selectedCategory, onProductSe
                     className="w-full"
                   />
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}</span>
+                    <span>Tshs {priceRange[0]}</span>
+                    <span>Tshs {priceRange[1]}</span>
                   </div>
                 </div>
               </div>
@@ -217,6 +218,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ selectedCategory, onProductSe
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => onAddToCart(product, 1)}
                   disabled={!product.inStock}
                   className={`w-full flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold transition-colors ${
                     product.inStock

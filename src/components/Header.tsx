@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface HeaderProps {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
+  onNavigate: (page: string) => void;
 }
 
 const categories = [
@@ -16,16 +17,23 @@ const categories = [
   { id: 'accessories', name: 'Accessories', icon: '🖱️' }
 ];
 
-const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) => {
+const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      onNavigate('products');
+      // You can add search functionality here
+    }
+  };
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-blue-900 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 text-center text-sm">
-          Special Offer: Free delivery allover Tanzania! Use code: FREETRANSPORTATION
+          Special Offer: Free delivery allover Tanzania! Use code: FreeShipping
         </div>
       </div>
 
@@ -36,6 +44,8 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
           <motion.div 
             className="flex items-center space-x-3"
             whileHover={{ scale: 1.05 }}
+            onClick={() => onNavigate('home')}
+            style={{ cursor: 'pointer' }}
           >
             <div className="bg-blue-600 p-2 rounded-lg">
               <Monitor className="text-white" size={32} />
@@ -63,6 +73,7 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleSearch}
               className="ml-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Search
@@ -74,6 +85,7 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={() => onNavigate('login')}
               className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
             >
               <User size={24} />
@@ -81,6 +93,7 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={() => onNavigate('cart')}
               className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
             >
               <ShoppingCart size={24} />
@@ -106,6 +119,7 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -122,6 +136,9 @@ const Header: React.FC<HeaderProps> = ({ selectedCategory, onCategoryChange }) =
                 onClick={() => onCategoryChange(category.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onMouseEnter={() => {
+                  if (category.id !== 'all') onNavigate('products');
+                }}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
                   selectedCategory === category.id
                     ? 'bg-blue-600 text-white'
